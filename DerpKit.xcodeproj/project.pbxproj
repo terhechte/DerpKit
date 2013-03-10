@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1E11A54A15B331F100500EBD /* UIViewController+Derp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E11A54915B331F100500EBD /* UIViewController+Derp.m */; };
 		1E11A55A15B333D500500EBD /* NSString+Derp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1ED3F1F015B2ADA90011D729 /* NSString+Derp.h */; };
 		1E11A55B15B333D600500EBD /* NSData+Derp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1ED3F1F315B2AE760011D729 /* NSData+Derp.h */; };
-		1E11A55C15B333D800500EBD /* UIViewController+Derp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1E11A54815B331F100500EBD /* UIViewController+Derp.h */; };
 		1EABBD6316223801001B9331 /* NSObject+Derp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EABBD6216223801001B9331 /* NSObject+Derp.m */; };
 		1EABBD6516224065001B9331 /* NSObject+Derp.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1EABBD6116223801001B9331 /* NSObject+Derp.h */; };
 		1EC132C4163A693200CCF530 /* NSArray+Derp.m in Sources */ = {isa = PBXBuildFile; fileRef = 1EC132C3163A693200CCF530 /* NSArray+Derp.m */; };
@@ -48,15 +46,12 @@
 				1EABBD6516224065001B9331 /* NSObject+Derp.h in CopyFiles */,
 				1E11A55A15B333D500500EBD /* NSString+Derp.h in CopyFiles */,
 				1E11A55B15B333D600500EBD /* NSData+Derp.h in CopyFiles */,
-				1E11A55C15B333D800500EBD /* UIViewController+Derp.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1E11A54815B331F100500EBD /* UIViewController+Derp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Derp.h"; sourceTree = "<group>"; };
-		1E11A54915B331F100500EBD /* UIViewController+Derp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Derp.m"; sourceTree = "<group>"; };
 		1EABBD6116223801001B9331 /* NSObject+Derp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+Derp.h"; sourceTree = "<group>"; };
 		1EABBD6216223801001B9331 /* NSObject+Derp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+Derp.m"; sourceTree = "<group>"; };
 		1EC132C2163A693200CCF530 /* NSArray+Derp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+Derp.h"; sourceTree = "<group>"; };
@@ -112,23 +107,6 @@
 			path = Foundation;
 			sourceTree = "<group>";
 		};
-		1E11A54615B3319E00500EBD /* UIKit */ = {
-			isa = PBXGroup;
-			children = (
-				1E11A54715B331AC00500EBD /* Categories */,
-			);
-			path = UIKit;
-			sourceTree = "<group>";
-		};
-		1E11A54715B331AC00500EBD /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-				1E11A54815B331F100500EBD /* UIViewController+Derp.h */,
-				1E11A54915B331F100500EBD /* UIViewController+Derp.m */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
 		1ED3F1B615B2AD3B0011D729 = {
 			isa = PBXGroup;
 			children = (
@@ -162,7 +140,6 @@
 			isa = PBXGroup;
 			children = (
 				1E11A54415B3319700500EBD /* Foundation */,
-				1E11A54615B3319E00500EBD /* UIKit */,
 				1ED3F1C915B2AD3B0011D729 /* DerpKit.h */,
 				1ED3F1C715B2AD3B0011D729 /* Supporting Files */,
 			);
@@ -314,7 +291,6 @@
 			files = (
 				1ED3F1F215B2ADA90011D729 /* NSString+Derp.m in Sources */,
 				1ED3F1F515B2AE760011D729 /* NSData+Derp.m in Sources */,
-				1E11A54A15B331F100500EBD /* UIViewController+Derp.m in Sources */,
 				1EC132C4163A693200CCF530 /* NSArray+Derp.m in Sources */,
 				1EABBD6316223801001B9331 /* NSObject+Derp.m in Sources */,
 				1EC1AB1C163A70DE008A6B50 /* NSDictionary+Derp.m in Sources */,
@@ -371,7 +347,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
+				VALID_ARCHS = x86_64;
 			};
 			name = Debug;
 		};
@@ -388,8 +365,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				SDKROOT = iphoneos;
+				SDKROOT = macosx;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = x86_64;
 			};
 			name = Release;
 		};

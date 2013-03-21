@@ -30,7 +30,7 @@
 
 @interface DerpKitTrampoline : NSObject
 {
-    __weak id observee;
+    __unsafe_unretained id observee;
     NSString *keyPath;
     DerpKitKVOTask task;
     NSOperationQueue *queue;

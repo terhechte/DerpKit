@@ -125,7 +125,7 @@ static dispatch_queue_t DerpKitMutationQueueCreatingIfNecessary()
         DerpKitTrampoline *trampoline = [observationDictionary objectForKey:token];
         if (!trampoline)
         {
-            NSLog(@"[NSObject(DerpKitKVOObservation) removeObserverWithBlockToken]: Ignoring attempt to remove non-existent observer on %@ for token %@.", self, token);
+            ELog(@"[NSObject(DerpKitKVOObservation) removeObserverWithBlockToken]: Ignoring attempt to remove non-existent observer on %@ for token %@.", self, token);
             return;
         }
         [trampoline cancelObservation];

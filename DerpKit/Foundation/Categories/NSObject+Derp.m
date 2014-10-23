@@ -30,12 +30,17 @@
 
 @interface DerpKitTrampoline : NSObject
 {
-    __unsafe_unretained id observee;
+    // finally
+    // no lion support anymore http://stackoverflow.com/questions/12580784/exc-bad-instruction-in-lion-but-not-in-mountain-lion
+    __weak id observee;
+    //__unsafe_unretained id observee;
     NSString *keyPath;
     DerpKitKVOTask task;
     NSOperationQueue *queue;
     dispatch_once_t cancellationPredicate;
 }
+
+@property (copy) NSString *info;
 
 - (DerpKitTrampoline *)initObservingObject:(id)obj keyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(DerpKitKVOTask)task;
 - (void)cancelObservation;
@@ -78,6 +83,7 @@ static NSString *DerpKitTrampolineContext = @"DerpKitTrampolineContext";
 
 - (void)dealloc
 {
+//    NSLog(@"Dealocating %@", self.info);
     [self cancelObservation];
 }
 
@@ -97,12 +103,22 @@ static dispatch_queue_t DerpKitMutationQueueCreatingIfNecessary()
 
 @implementation NSObject (DerpKitKVOObservation)
 
+- (DerpKitKVOToken *)derp_addObserverForKeyPath:(NSString *)keyPath info:(NSString*)info task:(DerpKitKVOTask)task
+{
+    return [self derp_addObserverForKeyPath:keyPath onQueue:nil info:info task:task];
+}
+
 - (DerpKitKVOToken *)derp_addObserverForKeyPath:(NSString *)keyPath task:(DerpKitKVOTask)task
 {
-    return [self derp_addObserverForKeyPath:keyPath onQueue:nil task:task];
+    return [self derp_addObserverForKeyPath:keyPath onQueue:nil info: nil task:task];
 }
 
 - (DerpKitKVOToken *)derp_addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue task:(DerpKitKVOTask)task
+{
+    return [self derp_addObserverForKeyPath:keyPath onQueue:queue info:nil task:task];
+}
+
+- (DerpKitKVOToken *)derp_addObserverForKeyPath:(NSString *)keyPath onQueue:(NSOperationQueue *)queue info:(NSString*)info task:(DerpKitKVOTask)task
 {
     DerpKitKVOToken *token = [[NSProcessInfo processInfo] globallyUniqueString];
     dispatch_sync(DerpKitMutationQueueCreatingIfNecessary(), ^{
@@ -115,17 +131,25 @@ static dispatch_queue_t DerpKitMutationQueueCreatingIfNecessary()
         DerpKitTrampoline *trampoline = [[DerpKitTrampoline alloc] initObservingObject:self keyPath:keyPath onQueue:queue task:task];
         [dict setObject:trampoline forKey:token];
     });
+#ifndef CRIPPLE_MODE
+    //ELog(@"Adding Observer for token -------------------------------- %@/%@", keyPath, token);
+#endif
     return token;
 }
 
 - (void)derp_removeObserverWithBlockToken:(DerpKitKVOToken *)token
 {
+#ifndef CRIPPLE_MODE
+    //ELog(@"Removing Observer for token -------------------------------- %@", token);
+#endif
     dispatch_sync(DerpKitMutationQueueCreatingIfNecessary(), ^{
         NSMutableDictionary *observationDictionary = objc_getAssociatedObject(self, (__bridge const void *)(DerpKitMapKey));
         DerpKitTrampoline *trampoline = [observationDictionary objectForKey:token];
         if (!trampoline)
         {
-            ELog(@"[NSObject(DerpKitKVOObservation) removeObserverWithBlockToken]: Ignoring attempt to remove non-existent observer on %@ for token %@.", self, token);
+#ifndef CRIPPLE_MODE
+            //ELog(@"[NSObject(DerpKitKVOObservation) removeObserverWithBlockToken]: Ignoring attempt to remove non-existent observer on %@ for token %@.", self, token);
+#endif
             return;
         }
         [trampoline cancelObservation];
